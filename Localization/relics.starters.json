@@ -1,0 +1,17 @@
+{
+  "BG_THE_DIE.title": "The Die",
+  "BG_THE_DIE.description": "Rolled at the start of each round; enemies act on it. When it locks in (your first card, potion, or end of turn): on a [blue]4[/blue] or [blue]5[/blue], gain {Block:diff()} [gold]Block[/gold]. On a [blue]6[/blue], trigger one of your die relics.",
+  "BG_THE_DIE.flavor": "Best not dwell on the other meaning of the word.",
+  "BG_BURNING_BLOOD.title": "Burning Blood",
+  "BG_BURNING_BLOOD.description": "At the end of combat, heal [green]{Heal}[/green] HP.",
+  "BG_BURNING_BLOOD.flavor": "Your body's own blood burns with an undying rage.",
+  "BG_RING_OF_THE_SNAKE.title": "Ring of the Snake",
+  "BG_RING_OF_THE_SNAKE.description": "At the start of each combat, draw {Cards:diff()} additional cards.",
+  "BG_RING_OF_THE_SNAKE.flavor": "Made from a fossilized snake. Represents great skill as a huntress.",
+  "BG_CRACKED_CORE.title": "Cracked Core",
+  "BG_CRACKED_CORE.description": "At the start of each combat, [gold]Channel[/gold] 1 [gold]Lightning[/gold].",
+  "BG_CRACKED_CORE.flavor": "The mysterious life force which powers the Automatons within the Spire.",
+  "BG_MIRACLES.title": "Miracles",
+  "BG_MIRACLES.description": "At the start of each combat, gain 1 [gold]Miracle[/gold]. Miracles give 1 Energy and last until used. You can hold up to [blue]5[/blue].",
+  "BG_MIRACLES.flavor": "\"Let me tell you about the time I played Conjure Blade+ for 11 Energy...\""
+}

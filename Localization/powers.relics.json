@@ -1,0 +1,12 @@
+{
+  "BG_INCENSE_BURNER_POWER.title": "Incense Burner",
+  "BG_INCENSE_BURNER_POWER.description": "You can't lose more than [blue]1[/blue] HP this round.",
+  "BG_AKABEKO_POWER.title": "Akabeko",
+  "BG_AKABEKO_POWER.description": "Your next Attack deals [blue]{Amount}[/blue] more damage per hit.",
+  "BG_CALIPERS_POWER.title": "Calipers",
+  "BG_CALIPERS_POWER.description": "Your [gold]Block[/gold] is not removed at the start of your next turn.",
+  "BG_GHOST_IN_A_JAR_POWER.title": "Ghost in a Jar",
+  "BG_GHOST_IN_A_JAR_POWER.description": "You can't lose more than [blue]1[/blue] HP this turn.",
+  "BG_DOUBLE_SKILL_POWER.title": "Skill Potion",
+  "BG_DOUBLE_SKILL_POWER.description": "Your next Skill this turn is played twice."
+}

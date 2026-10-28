@@ -1,0 +1,6 @@
+{
+  "BG_SHIELD_AND_SPEAR_ELITE.title": "Spire Shield and Spear",
+  "BG_SHIELD_AND_SPEAR_ELITE.loss": "{character} was surrounded by the [gold]{encounter}[/gold].",
+  "BG_CORRUPT_HEART_BOSS.title": "Corrupt Heart",
+  "BG_CORRUPT_HEART_BOSS.loss": "{character} was consumed by the [gold]{encounter}[/gold]."
+}

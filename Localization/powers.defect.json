@@ -1,0 +1,16 @@
+{
+  "BG_ECHO_FORM_POWER.title": "Echo Form",
+  "BG_ECHO_FORM_POWER.description": "The first Attack or Skill you play each turn is played twice.",
+  "BG_ENERGY_UP_POWER.title": "Fusion",
+  "BG_ENERGY_UP_POWER.description": "At the start of your turn, gain [blue]{Amount}[/blue] Energy.",
+  "BG_HEATSINKS_POWER.title": "Heatsinks",
+  "BG_HEATSINKS_POWER.description": "Whenever you play a Power, draw [blue]{Amount}[/blue] cards.",
+  "BG_LOOP_POWER.title": "Loop",
+  "BG_LOOP_POWER.description": "At the end of your turn, trigger an orb's end-of-turn ability [blue]{Amount}[/blue] {Amount:plural:time|times}.",
+  "BG_MACHINE_LEARNING_POWER.title": "Machine Learning",
+  "BG_MACHINE_LEARNING_POWER.description": "At the start of your turn, draw [blue]{Amount}[/blue] additional {Amount:plural:card|cards}.",
+  "BG_STORM_POWER.title": "Storm",
+  "BG_STORM_POWER.description": "At the start of your turn, [gold]Channel[/gold] [blue]{Amount}[/blue] [gold]Lightning[/gold].",
+  "BG_TEMPORARY_RETAIN_POWER.title": "Equilibrium",
+  "BG_TEMPORARY_RETAIN_POWER.description": "At the end of this turn, you may [gold]Retain[/gold] up to [blue]{Amount}[/blue] {Amount:plural:card|cards}."
+}

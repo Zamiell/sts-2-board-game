@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AssemblyName>BoardGame</AssemblyName>
+    <Version>1.0.0</Version>
+    <ModOutputDir>$(MSBuildProjectDirectory)/dist/BoardGame</ModOutputDir>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="sts2" HintPath="$(GameDataDir)/sts2.dll" Private="false" />
+    <Reference Include="GodotSharp" HintPath="$(GameDataDir)/GodotSharp.dll" Private="false" />
+    <Reference Include="0Harmony" HintPath="$(GameDataDir)/0Harmony.dll" Private="false" />
+    <Compile Remove="tests/**/*.cs" />
+    <EmbeddedResource Include="Localization/*.json" LogicalName="loc/%(Filename)%(Extension)" WithCulture="false" />
+  </ItemGroup>
+  <Target Name="CheckGamePath" BeforeTargets="ResolveReferences">
+    <Error Condition="!Exists('$(GameDataDir)/sts2.dll')"
+           Text="Game assembly not found. Pass -p:GameDataDir=/path/to/data_sts2_platform." />
+  </Target>
+  <Target Name="PackageMod" AfterTargets="Build">
+    <MakeDir Directories="$(ModOutputDir)" />
+    <Copy SourceFiles="$(TargetPath);$(MSBuildProjectDirectory)/BoardGame.json"
+          DestinationFolder="$(ModOutputDir)" />
+  </Target>
+  <Target Name="InstallMod" DependsOnTargets="Build">
+    <Error Condition="!Exists('$(GameModsDir)/..')" Text="Game directory not found. Pass -p:GameDir=/path/to/game or -p:GameModsDir=/path/to/mods." />
+    <MakeDir Directories="$(GameModsDir)/BoardGame" />
+    <Copy SourceFiles="$(ModOutputDir)/BoardGame.dll;$(ModOutputDir)/BoardGame.json"
+          DestinationFolder="$(GameModsDir)/BoardGame" />
+  </Target>
+</Project>

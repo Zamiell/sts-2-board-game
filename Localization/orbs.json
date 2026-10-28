@@ -1,0 +1,11 @@
+{
+  "BG_LIGHTNING_ORB.title": "Lightning",
+  "BG_LIGHTNING_ORB.description": "Orb: deals damage to an enemy of your choice.",
+  "BG_LIGHTNING_ORB.smartDescription": "[gold]Passive:[/gold] At the end of turn, deal [blue]{Passive}[/blue] damage to an enemy of your choice.\n[gold]Evoke:[/gold] Deal [blue]{Evoke}[/blue] damage to an enemy of your choice.",
+  "BG_FROST_ORB.title": "Frost",
+  "BG_FROST_ORB.description": "Orb: gains Block.",
+  "BG_FROST_ORB.smartDescription": "[gold]Passive:[/gold] At the end of turn, gain [blue]{Passive}[/blue] [gold]Block[/gold].\n[gold]Evoke:[/gold] Gain [blue]{Evoke}[/blue] [gold]Block[/gold].",
+  "BG_DARK_ORB.title": "Dark",
+  "BG_DARK_ORB.description": "Orb: Evoke to deal damage, 1 more for each Power you played this combat.",
+  "BG_DARK_ORB.smartDescription": "[gold]Evoke:[/gold] Deal [blue]{Evoke}[/blue] damage to an enemy of your choice. Deals 1 more for each Power you played this combat. You can have at most [blue]3[/blue] [gold]Dark[/gold] orbs."
+}

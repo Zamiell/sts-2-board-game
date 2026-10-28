@@ -1,0 +1,8 @@
+{
+  "VULNERABLE_POWER.description": "Vulnerable creatures take double damage from the next Attack, then remove [blue]1[/blue] [gold]Vulnerable[/gold]. A [gold]Weak[/gold] attacker ignores it.",
+  "VULNERABLE_POWER.smartDescription": "Take double damage from the next [blue]{Amount}[/blue] {Amount:plural:Attack|Attacks}. A [gold]Weak[/gold] attacker ignores this.",
+  "WEAK_POWER.description": "Weakened creatures deal [blue]1[/blue] less damage per hit with their next Attack, then remove [blue]1[/blue] [gold]Weak[/gold]. Has no effect against [gold]Vulnerable[/gold] targets.",
+  "WEAK_POWER.smartDescription": "The next [blue]{Amount}[/blue] {Amount:plural:Attack deals|Attacks deal} [blue]1[/blue] less damage per hit. Has no effect against [gold]Vulnerable[/gold] targets.",
+  "POISON_POWER.description": "Poisoned enemies lose HP equal to their [gold]Poison[/gold] at the start of their turn. Enemy [gold]Poison[/gold] is never reduced.",
+  "POISON_POWER.smartDescription": "{OnPlayer:At the start of your turn, lose|At the start of its turn, loses} [blue]{Amount}[/blue] HP. {OnPlayer:Then reduce [gold]Poison[/gold] by [blue]1[/blue].|[gold]Poison[/gold] is never reduced.}"
+}

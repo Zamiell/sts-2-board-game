@@ -1,0 +1,20 @@
+{
+  "BG_WRATH_STANCE.title": "Wrath",
+  "BG_WRATH_STANCE.description": "Your Attacks deal [blue]1[/blue] more damage per hit. If you end your turn in [gold]Wrath[/gold], take [blue]1[/blue] damage.",
+  "BG_CALM_STANCE.title": "Calm",
+  "BG_CALM_STANCE.description": "When you leave [gold]Calm[/gold], gain 2 Energy.",
+  "BG_SIMMERING_FURY_POWER.title": "Simmering Fury",
+  "BG_SIMMERING_FURY_POWER.description": "[gold]Wrath[/gold] adds [blue]{Amount}[/blue] more damage per hit.",
+  "BG_ORB_EVOKE_POWER.title": "Evoke Bonus",
+  "BG_ORB_EVOKE_POWER.description": "Your orbs Evoke for [blue]{Amount}[/blue] more.",
+  "BG_ORB_END_OF_TURN_POWER.title": "Passive Bonus",
+  "BG_ORB_END_OF_TURN_POWER.description": "Your orbs' Passives are [blue]{Amount}[/blue] stronger.",
+  "BG_STATIC_DISCHARGE_POWER.title": "Static Discharge",
+  "BG_STATIC_DISCHARGE_POWER.description": "Your [gold]Lightning[/gold] Passives deal [blue]{Amount}[/blue] more damage.",
+  "BG_AMPLIFY_POWER.title": "Amplify",
+  "BG_AMPLIFY_POWER.description": "Your [gold]Dark[/gold] orbs Evoke for [blue]{Amount}[/blue] more damage.",
+  "BG_ELECTRODYNAMICS_POWER.title": "Electrodynamics",
+  "BG_ELECTRODYNAMICS_POWER.description": "[gold]Lightning[/gold] hits ALL enemies.",
+  "BG_ACCURACY_POWER.title": "Accuracy",
+  "BG_ACCURACY_POWER.description": "Shivs deal [blue]{Amount}[/blue] more damage."
+}

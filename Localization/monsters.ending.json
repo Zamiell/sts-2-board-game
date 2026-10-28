@@ -1,0 +1,15 @@
+{
+  "BG_SPIRE_SHIELD.name": "Spire Shield",
+  "BG_SPIRE_SHIELD.moves.FORTIFY.title": "Fortify",
+  "BG_SPIRE_SHIELD.moves.SMASH.title": "Smash",
+  "BG_SPIRE_SHIELD.moves.BASH.title": "Bash",
+  "BG_SPIRE_SPEAR.name": "Spire Spear",
+  "BG_SPIRE_SPEAR.moves.BURN_STRIKE.title": "Burn Strike",
+  "BG_SPIRE_SPEAR.moves.PIERCER.title": "Piercer",
+  "BG_SPIRE_SPEAR.moves.SKEWER.title": "Skewer",
+  "BG_CORRUPT_HEART.name": "Corrupt Heart",
+  "BG_CORRUPT_HEART.moves.DEBILITATE.title": "Debilitate",
+  "BG_CORRUPT_HEART.moves.ECHO.title": "Echo",
+  "BG_CORRUPT_HEART.moves.BLOOD_SHOTS.title": "Blood Shots",
+  "BG_CORRUPT_HEART.moves.BUFF.title": "Buff"
+}

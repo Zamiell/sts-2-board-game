@@ -1,0 +1,11 @@
+{
+  "BG_IRONCLAD.title": "Ironclad",
+  "BG_IRONCLAD.description": "[gold]Board game.[/gold] The remaining soldier of the Ironclads. Starts with [blue]10[/blue] HP, the die, and [gold]Burning Blood[/gold].",
+  "BG_SILENT.title": "Silent",
+  "BG_SILENT.description": "[gold]Board game.[/gold] A deadly huntress from the foglands. Starts with [blue]9[/blue] HP, the die, and the [gold]Ring of the Snake[/gold].",
+  "BG_DEFECT.title": "Defect",
+  "BG_DEFECT.description": "[gold]Board game.[/gold] A combat automaton with three orb slots. Starts with [blue]9[/blue] HP, the die, and a [gold]Cracked Core[/gold].",
+  "BG_WATCHER.title": "Watcher",
+  "BG_WATCHER.description": "[gold]Board game.[/gold] A blind ascetic who changes between [gold]Calm[/gold] and [gold]Wrath[/gold]. Starts with [blue]9[/blue] HP, the die, and [gold]Miracles[/gold].",
+  "BG_WATCHER.titleObject": "the Watcher"
+}

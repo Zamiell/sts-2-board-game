@@ -1,0 +1,16 @@
+{
+  "BG_APOTHEOSIS_POWER.title": "Apotheosis",
+  "BG_APOTHEOSIS_POWER.description": "Your starter Strikes deal [blue]{Amount}[/blue] more damage and your starter Defends give [blue]{Amount}[/blue] more [gold]Block[/gold].",
+  "BG_APPARITION_POWER.title": "Apparition",
+  "BG_APPARITION_POWER.description": "You can't lose more than 1 HP this turn.",
+  "BG_FREE_CARD_POWER.title": "Madness",
+  "BG_FREE_CARD_POWER.description": "The next card you play this turn costs 0.",
+  "BG_MAYHEM_POWER.title": "Mayhem",
+  "BG_MAYHEM_POWER.description": "At the start of your turn, play the top [blue]{Amount}[/blue] {Amount:plural:card|cards} of your draw pile for free.",
+  "BG_PANACHE_POWER.title": "Panache",
+  "BG_PANACHE_POWER.description": "At the end of your turn, if your hand is empty, deal [blue]{Amount}[/blue] damage to any row.",
+  "BG_SADISTIC_NATURE_POWER.title": "Sadistic Nature",
+  "BG_SADISTIC_NATURE_POWER.description": "Whenever you apply [gold]Weak[/gold], [gold]Vulnerable[/gold], or [gold]Poison[/gold] to an enemy, deal [blue]{Amount}[/blue] damage to it for each.",
+  "BG_THE_BOMB_POWER.title": "The Bomb",
+  "BG_THE_BOMB_POWER.description": "Explodes at the end of [blue]{Amount}[/blue] more {Amount:plural:turn|turns}, damaging ALL enemies."
+}
