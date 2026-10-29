@@ -1,14 +1,13 @@
 using BoardGame.Core;
-using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.Models;
 
 namespace BoardGame.Relics;
 
-// The board game has one relic deck shared by every character, plus each character's starting relics.
+// Every board game relic: the relic deck, boss relics, keys, and each character's starting relics. The game looks up
+// a relic's pool to show its description, so every relic must be in one. Relic decks and rewards pick by rarity.
 public sealed class BgRelicPool : RelicPoolModel
 {
     public override string EnergyColorName => "colorless";
 
-    protected override IEnumerable<RelicModel> GenerateAllRelics() =>
-        Content.Models<BgRelic, RelicModel>().Where(relic => relic.Rarity != RelicRarity.Starter);
+    protected override IEnumerable<RelicModel> GenerateAllRelics() => Content.Models<BgRelic, RelicModel>();
 }
