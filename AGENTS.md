@@ -66,10 +66,12 @@ gameplay that hasn't been tried in the game.
 After every user prompt that changes this repository:
 
 1. Run `./check.sh` and make sure it passes.
-2. Commit all in-scope changes with a descriptive commit message.
-3. Push the commit to the current branch's configured upstream.
+2. If the mod's code or text changed, run `./install.sh` to copy the build into
+   the game. The game loads the mod at startup, so tell the user to restart it.
+3. Commit all in-scope changes with a descriptive commit message.
+4. Push the commit to the current branch's configured upstream.
 
 Do not create empty commits for prompts that make no repository changes. Do not
 include unrelated pre-existing worktree changes in the commit. If the checks,
-the commit, or the push fails, report the failure instead of claiming the task
+the install, the commit, or the push fails, report the failure instead of claiming the task
 is complete.
