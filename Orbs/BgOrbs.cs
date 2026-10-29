@@ -202,6 +202,5 @@ public static class BgOrbs
             orb => orb is BgOrb bg ? new Choice.Option(bg.Name, bg.EvokeText) : new Choice.Option(orb.Title.GetFormattedText(), ""));
 
     public static async Task<Creature> ChooseEnemy(PlayerChoiceContext choiceContext, Player player, IReadOnlyList<Creature> enemies, string prompt) =>
-        await Choice.Choose(choiceContext, player, prompt, enemies,
-            enemy => new Choice.Option(enemy.Name, $"{enemy.CurrentHp}/{enemy.MaxHp} HP")) ?? enemies[0];
+        await Targeting.ChooseEnemy(player, enemies, prompt) ?? enemies[0];
 }

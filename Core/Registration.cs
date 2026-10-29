@@ -16,7 +16,7 @@ internal static class Registration
     [HarmonyPatch(typeof(ModelDb), nameof(ModelDb.AllCharacters), MethodType.Getter)]
     [HarmonyPostfix]
     private static void AllCharacters(ref IEnumerable<CharacterModel> __result) =>
-        __result = __result.Concat(Content.Models<BgCharacter, CharacterModel>()).ToArray();
+        __result = __result.Concat(BgCharacter.InBoxOrder).ToArray();
 
     [HarmonyPatch(typeof(ModelDb), nameof(ModelDb.AllSharedCardPools), MethodType.Getter)]
     [HarmonyPostfix]

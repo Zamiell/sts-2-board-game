@@ -139,3 +139,21 @@ public sealed class BgTheGuardianBoss() : BgEncounter<BgExordium>(RoomType.Boss)
     public override string BorrowedEntry => "KAISER_CRAB_BOSS";
     protected override IEnumerable<BgMonster> Monsters() => [Make<BgTheGuardian>()];
 }
+
+// Mind Bloom's "I am War" fights an Act I boss inside an event in The Beyond. These copies are normal fights, so
+// winning doesn't end the act; they belong to no act's encounter deck.
+public sealed class BgMindBloomHexaghost() : BgEncounter<Events.BgMindBloom>(RoomType.Monster)
+{
+    protected override IEnumerable<BgMonster> Monsters() => [Make<BgHexaghost>()];
+}
+
+public sealed class BgMindBloomSlimeBoss() : BgEncounter<Events.BgMindBloom>(RoomType.Monster)
+{
+    protected override IEnumerable<Type> Summons => [typeof(BgAcidSlimeL), typeof(BgAcidSlimeM), typeof(BgSpikeSlimeM)];
+    protected override IEnumerable<BgMonster> Monsters() => [Make<BgSlimeBoss>()];
+}
+
+public sealed class BgMindBloomTheGuardian() : BgEncounter<Events.BgMindBloom>(RoomType.Monster)
+{
+    protected override IEnumerable<BgMonster> Monsters() => [Make<BgTheGuardian>()];
+}

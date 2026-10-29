@@ -345,3 +345,10 @@ public sealed class BgZeroDamagePower : BgPower
         }
     }
 }
+
+// Pincer Movement: the Spire Shield and Spear stand in different rows, so area attacks hit only one of them.
+public sealed class BgPincerMovementPower : BgPower
+{
+    public override string BorrowedEntry => "SURROUNDED_POWER";
+    public override PowerStackType StackType => PowerStackType.Single;
+}

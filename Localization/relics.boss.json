@@ -58,5 +58,17 @@
   "BG_PANDORAS_BOX.flavor": "Don't open it.",
   "BG_TINY_HOUSE.title": "Tiny House",
   "BG_TINY_HOUSE.description": "Upon pickup, gain a card reward, a potion, 3 Gold, and Upgrade a card.",
-  "BG_TINY_HOUSE.flavor": "Home sweet home."
+  "BG_TINY_HOUSE.flavor": "Home sweet home.",
+  "BG_SECRET_PORTAL_RELIC.title": "Secret Portal",
+  "BG_SECRET_PORTAL_RELIC.description": "Your next move on the map is straight to the boss.",
+  "BG_SECRET_PORTAL_RELIC.flavor": "Welcome to the warp zone!",
+  "BG_RUBY_KEY.title": "Ruby Key",
+  "BG_RUBY_KEY.description": "One of the three keys to Act IV. Taken by Recalling at a rest site.",
+  "BG_RUBY_KEY.flavor": "A key carved from a single ruby.",
+  "BG_EMERALD_KEY.title": "Emerald Key",
+  "BG_EMERALD_KEY.description": "One of the three keys to Act IV. Taken from the burning elite.",
+  "BG_EMERALD_KEY.flavor": "It burns with a green flame.",
+  "BG_SAPPHIRE_KEY.title": "Sapphire Key",
+  "BG_SAPPHIRE_KEY.description": "One of the three keys to Act IV. Taken instead of an elite's relic.",
+  "BG_SAPPHIRE_KEY.flavor": "Cold to the touch."
 }

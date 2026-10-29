@@ -23,6 +23,12 @@ public sealed class BgSpireShield : BgMonster
     public override int MinInitialHp => 30;
     public override int MaxInitialHp => 30;
 
+    public override async Task AfterAddedToRoom()
+    {
+        await base.AfterAddedToRoom();
+        await Buff<BgPincerMovementPower>(1);
+    }
+
     protected override void DefineMoves()
     {
         Move("FORTIFY", () => Block(20), new DefendIntent());
@@ -62,12 +68,11 @@ public sealed class BgSpireShield : BgMonster
             return;
         }
         var spear = CombatState.Enemies.FirstOrDefault(e => e.IsAlive && e.Monster is BgSpireSpear)?.Monster as BgSpireSpear;
-        var options = new List<Choice.Option> { new("Face the Shield", ShieldText) };
-        if (spear != null)
-        {
-            options.Add(new("Face the Spear", "Shuffle 2 Burns into your discard pile."));
-        }
-        var choice = await Choice.Choose(choiceContext, player, "Surrounded: choose which enemy to face", options);
+        var faced = spear == null
+            ? Creature
+            : await Targeting.ChooseEnemy(player, [Creature, spear.Creature],
+                $"Surrounded: face the Shield ({ShieldText}) or the Spear (shuffle 2 Burns into your discard pile)") ?? Creature;
+        var choice = faced == spear?.Creature ? 1 : 0;
         if (choice == 1 && spear != null)
         {
             await spear.Face(player);
@@ -92,6 +97,12 @@ public sealed class BgSpireSpear : BgMonster
     protected override MonsterModel Look => ModelDb.Monster<HunterKiller>();
     public override int MinInitialHp => 42;
     public override int MaxInitialHp => 42;
+
+    public override async Task AfterAddedToRoom()
+    {
+        await base.AfterAddedToRoom();
+        await Buff<BgPincerMovementPower>(1);
+    }
 
     protected override void DefineMoves()
     {

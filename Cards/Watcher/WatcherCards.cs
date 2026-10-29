@@ -74,8 +74,7 @@ public sealed class BgCarveReality() : BgWatcherCardBase(2, CardType.Attack, Car
         {
             return;
         }
-        var second = await Choice.Choose(choiceContext, Owner, "Carve Reality: choose a second enemy", others,
-            e => new Choice.Option(e.Name, $"{e.CurrentHp}/{e.MaxHp} HP"), canSkip: true);
+        var second = await Targeting.ChooseEnemy(Owner, others, "Carve Reality: choose a second enemy", optional: true);
         if (second != null)
         {
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this, cardPlay).Targeting(second)

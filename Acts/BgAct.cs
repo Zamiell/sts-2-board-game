@@ -5,7 +5,9 @@ using Godot;
 using MegaCrit.Sts2.Core.Map;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Acts;
+using MegaCrit.Sts2.Core.Models.Events;
 using MegaCrit.Sts2.Core.Random;
+using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.Unlocks;
 
 namespace BoardGame.Acts;
@@ -40,7 +42,9 @@ public abstract class BgAct : ActModel, IBorrowsAssets
 
     public override IEnumerable<EncounterModel> BossDiscoveryOrder => [];
 
-    public override IEnumerable<AncientEventModel> AllAncients => Borrowed.AllAncients;
+    // Neow blesses the party at the start of the run, and restores their health at the start of each later act.
+    // STS2's other Ancients don't exist in the board game.
+    public override IEnumerable<AncientEventModel> AllAncients => [ModelDb.Event<Neow>()];
 
     public override IEnumerable<AncientEventModel> GetUnlockedAncients(UnlockState unlockState) => AllAncients;
 
@@ -55,24 +59,37 @@ public abstract class BgAct : ActModel, IBorrowsAssets
     }
 
     public override MapPointTypeCounts GetMapPointTypes(Rng mapRng) => Borrowed.GetMapPointTypes(mapRng);
+
+    // The act's printed map layouts; one is chosen at random.
+    protected virtual BgMapData.Layout[] Layouts => [];
+
+    public virtual ActMap CreateBoardGameMap(IRunState runState)
+    {
+        var rng = new Rng(runState.Rng.Seed, $"bg_act_{Index + 1}_map");
+        return new BgActMap(rng.NextItem(Layouts)!, rng, runState.Act.HasSecondBoss,
+            burningElite: !Core.Keys.PartyHas<Core.BgEmeraldKey>(runState));
+    }
 }
 
 public sealed class BgExordium : BgAct
 {
     protected override ActModel Borrowed => ModelDb.Act<Overgrowth>();
     public override int Index => 0;
+    protected override BgMapData.Layout[] Layouts => BgMapData.Exordium;
 }
 
 public sealed class BgCity : BgAct
 {
     protected override ActModel Borrowed => ModelDb.Act<Hive>();
     public override int Index => 1;
+    protected override BgMapData.Layout[] Layouts => BgMapData.City;
 }
 
 public sealed class BgBeyond : BgAct
 {
     protected override ActModel Borrowed => ModelDb.Act<Glory>();
     public override int Index => 2;
+    protected override BgMapData.Layout[] Layouts => BgMapData.Beyond;
 }
 
 // Act IV: the Spire Shield and Spear, then the Corrupt Heart.
@@ -80,4 +97,20 @@ public sealed class BgEnding : BgAct
 {
     protected override ActModel Borrowed => ModelDb.Act<Glory>();
     public override int Index => 3;
+
+    // The Spire Shield and Spear only guard the Heart from board game Ascension 11.
+    public override ActMap CreateBoardGameMap(IRunState runState) => new BgActMap(elite: runState.AscensionLevel >= 11);
+}
+
+// STS2 spreads its shared Ancients over the later acts. Board game acts have none.
+[HarmonyLib.HarmonyPatch(typeof(ActModel), nameof(ActModel.SetSharedAncientSubset))]
+internal static class BgActSharedAncientsPatch
+{
+    private static void Prefix(ActModel __instance, ref List<AncientEventModel> sharedAncientSubset)
+    {
+        if (__instance is BgAct)
+        {
+            sharedAncientSubset = [];
+        }
+    }
 }

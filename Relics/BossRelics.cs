@@ -1,4 +1,5 @@
 using BoardGame.Cards;
+using BoardGame.Core;
 using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -172,8 +173,7 @@ public sealed class BgEnchiridion : BgBossRelic
 
     public override Task AfterObtained()
     {
-        var options = CardCreationOptions.ForNonCombatWithUniformOdds([Owner.Character.CardPool], c => c.Rarity == CardRarity.Rare);
-        return RewardsCmd.OfferCustom(Owner, [new CardReward(options, 5, Owner)]);
+        return RewardsCmd.OfferCustom(Owner, [RewardDeck.Reward(Owner, 5, rare: true)]);
     }
 }
 
@@ -194,7 +194,7 @@ public sealed class BgPandorasBox : BgBossRelic
         var prefs = new CardSelectorPrefs(CardSelectorPrefs.TransformSelectionPrompt, 3);
         foreach (var card in (await CardSelectCmd.FromDeckForTransformation(Owner, prefs)).ToList())
         {
-            await CardCmd.Transform(card, CardFactory.CreateRandomCardForTransform(card, false, Owner.RunState.Rng.Niche));
+            await RewardDeck.Transform(card);
         }
     }
 }
@@ -256,14 +256,11 @@ public sealed class BgPrismaticShard : BgRelic
 
 internal static class PickupEffects
 {
-    public static CardReward CardReward(Player player) =>
-        new(CardCreationOptions.ForNonCombatWithDefaultOdds([player.Character.CardPool]), 3, player);
+    public static CardReward CardReward(Player player) => RewardDeck.Reward(player);
 
     public static async Task GainRandomCurses(Player player, int count)
     {
-        var curses = Core.Content.Models<BgCurseCard, CardModel>().Where(c => c is not BgAscendersBane).ToList();
-        var chosen = Enumerable.Range(0, count).Select(_ => player.RunState.Rng.Niche.NextItem(curses)!).ToList();
-        await CardPileCmd.AddCursesToDeck(chosen, player);
+        await RewardDeck.GainCurses(player, count);
     }
 
     // War Paint and Whetstone: upgrade a starter Defend (Strike), then choose another Skill (Attack) to upgrade.

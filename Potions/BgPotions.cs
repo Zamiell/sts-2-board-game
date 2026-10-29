@@ -86,9 +86,21 @@ public sealed class BgDistilledChaos : BgPotion
 
     protected override async Task OnUse(PlayerChoiceContext choiceContext, Creature? target)
     {
-        var drawn = (await CardPileCmd.Draw(choiceContext, 3, Owner)).ToList();
-        foreach (var card in drawn.Where(c => c.Pile?.Type == PileType.Hand))
+        // Draw 3 cards, then play them for free in any order.
+        var remaining = (await CardPileCmd.Draw(choiceContext, 3, Owner)).Where(c => c.Pile?.Type == PileType.Hand).ToList();
+        while (remaining.Count > 0)
         {
+            var card = remaining[0];
+            if (remaining.Count > 1)
+            {
+                var prefs = new CardSelectorPrefs(Choice.PromptText("Distilled Chaos: choose the next card to play"), 1, 1);
+                card = (await CardSelectCmd.FromHand(choiceContext, Owner, prefs, remaining.Contains, this)).FirstOrDefault() ?? card;
+            }
+            remaining.Remove(card);
+            if (card.Pile?.Type != PileType.Hand)
+            {
+                continue;
+            }
             Creature? cardTarget = null;
             if (card.TargetType == TargetType.AnyEnemy)
             {

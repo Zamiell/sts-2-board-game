@@ -36,6 +36,27 @@ public sealed class BgRules : ModifierModel, IBorrowsAssets
 
     private HashSet<Player> _powerThisTurn = [];
 
+    // The party's reward decks (see RewardDeck), saved with the run as "deck=card,card;deck=card".
+    internal Dictionary<string, List<string>> RewardDeckState { get; private set; } = [];
+
+    [MegaCrit.Sts2.Core.Saves.Runs.SavedProperty]
+    public string RewardDecks
+    {
+        get => string.Join(";", RewardDeckState.Select(d => d.Key + "=" + string.Join(",", d.Value)));
+        set => RewardDeckState = (value ?? "").Split(';', StringSplitOptions.RemoveEmptyEntries)
+            .Select(d => d.Split('='))
+            .ToDictionary(d => d[0], d => d.Length > 1 ? d[1].Split(',', StringSplitOptions.RemoveEmptyEntries).ToList() : []);
+    }
+
+    public override Task AfterCardChangedPiles(CardModel card, PileType oldPileType, AbstractModel? clonedBy)
+    {
+        if (oldPileType == PileType.None && card.Pile?.Type == PileType.Deck)
+        {
+            RewardDeck.Obtained(card);
+        }
+        return Task.CompletedTask;
+    }
+
     // Mummified Hand needs a Power played this turn.
     public bool PlayedPowerThisTurn(Player player) => _powerThisTurn.Contains(player);
 
@@ -97,6 +118,7 @@ public sealed class BgRules : ModifierModel, IBorrowsAssets
         _cardsThisTurn = [];
         _powerThisTurn = [];
         _stanceChangedThisTurn = [];
+        RewardDeckState = RewardDeckState.ToDictionary(d => d.Key, d => d.Value.ToList());
     }
 
     public static BgRules? For(IRunState? runState) =>
@@ -224,7 +246,52 @@ public sealed class BgRules : ModifierModel, IBorrowsAssets
         return Task.CompletedTask;
     }
 
-    public override Task AfterCombatVictory(MegaCrit.Sts2.Core.Rooms.CombatRoom room) => Relics.BossRelicReward.Offer(room);
+    // Where the burning elite is: "act:column:row", or empty.
+    [MegaCrit.Sts2.Core.Saves.Runs.SavedProperty]
+    public string EmeraldElite { get; set; } = "";
+
+    // Board game acts use the board game's printed maps.
+    public override MegaCrit.Sts2.Core.Map.ActMap ModifyGeneratedMap(IRunState runState, MegaCrit.Sts2.Core.Map.ActMap map, int actIndex)
+    {
+        if (runState.Act is not Acts.BgAct act)
+        {
+            return map;
+        }
+        var boardGameMap = act.CreateBoardGameMap(runState);
+        if (boardGameMap is Acts.BgActMap { BurningElite: { } burning })
+        {
+            EmeraldElite = Keys.Mark(actIndex, burning.coord);
+        }
+        Keys.MarkBurningElite(runState, boardGameMap);
+        return boardGameMap;
+    }
+
+    public override MegaCrit.Sts2.Core.Map.ActMap ModifyGeneratedMapLate(IRunState runState, MegaCrit.Sts2.Core.Map.ActMap map, int actIndex)
+    {
+        Keys.MarkBurningElite(runState, map);
+        return map;
+    }
+
+    public override Task BeforeCombatStart() => Keys.AtBurningElite(RunState) ? Keys.AddBurns(RunState) : Task.CompletedTask;
+
+    public override Task BeforeRoomEntered(MegaCrit.Sts2.Core.Rooms.AbstractRoom room)
+    {
+        Keys.CloseActFourWithoutKeys(RunState, room);
+        return Task.CompletedTask;
+    }
+
+    public override bool TryModifyRestSiteOptions(Player player, ICollection<MegaCrit.Sts2.Core.Entities.RestSite.RestSiteOption> options)
+    {
+        if (RunState.CurrentActIndex >= 3 || Keys.PartyHas<BgRubyKey>(RunState))
+        {
+            return false;
+        }
+        options.Add(new BgRecallRestSiteOption(player));
+        return true;
+    }
+
+    public override decimal ModifyMerchantPrice(Player player, MegaCrit.Sts2.Core.Entities.Merchant.MerchantEntry entry, decimal cost) =>
+        BgMerchantInventoryPatch.Price(entry, player, cost);
 
     public override Task AfterCombatEnd(MegaCrit.Sts2.Core.Rooms.CombatRoom room)
     {

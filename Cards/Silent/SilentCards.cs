@@ -411,8 +411,7 @@ public sealed class BgDodgeAndRoll() : BgSilentCard(1, CardType.Skill, CardRarit
         var players = CombatState!.Players.Where(p => p.Creature.IsAlive).ToList();
         for (var i = 0; i < (int)DynamicVars["Magic"].BaseValue; i++)
         {
-            var target = await Choice.Choose(choiceContext, Owner, $"Dodge and Roll: give {DynamicVars.Block.BaseValue} Block to", players,
-                p => new Choice.Option(p.Creature.Name, $"{p.Creature.Block} Block")) ?? Owner;
+            var target = await Targeting.ChoosePlayer(Owner, $"Dodge and Roll: give {DynamicVars.Block.BaseValue} Block to", players) ?? Owner;
             await CreatureCmd.GainBlock(target.Creature, DynamicVars.Block.BaseValue, DynamicVars.Block.Props, cardPlay);
         }
     }
@@ -675,8 +674,7 @@ public sealed class BgPredator() : BgSilentCard(2, CardType.Attack, CardRarity.U
     {
         await Attack(choiceContext, cardPlay);
         var players = CombatState!.Players.Where(p => p.Creature.IsAlive).ToList();
-        var drawer = await Choice.Choose(choiceContext, Owner, $"Predator: who draws {DynamicVars.Cards.BaseValue} cards?", players,
-            p => new Choice.Option(p.Creature.Name, "")) ?? Owner;
+        var drawer = await Targeting.ChoosePlayer(Owner, $"Predator: who draws {DynamicVars.Cards.BaseValue} cards?", players) ?? Owner;
         await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, drawer);
     }
 

@@ -1,9 +1,9 @@
 {
   "id": "BoardGame",
-  "name": "Board Game Rules",
+  "name": "Slay the Spire: The Board Game",
   "author": "James",
-  "description": "Plays Slay the Spire 2 with the rules of Slay the Spire: The Board Game: token-based Vulnerable and Weak, Poison that never decays, and the board game's token limits.",
-  "version": "0.1.0",
+  "description": "Plays Slay the Spire: The Board Game in Slay the Spire 2: the board game's characters, cards, enemies, die, relics, potions, events, maps, and economy, plus its token rules for Vulnerable, Weak, and Poison.",
+  "version": "0.2.0",
   "min_game_version": "0.111.0",
   "has_pck": false,
   "has_dll": true,

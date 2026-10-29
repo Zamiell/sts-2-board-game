@@ -78,9 +78,7 @@ public static class RelicEffects
 
     public static async Task<Player?> ChoosePlayer(PlayerChoiceContext choiceContext, Player chooser, string prompt)
     {
-        var players = chooser.RunState.Players.Where(p => p.Creature.IsAlive).ToList();
-        return await Choice.Choose(choiceContext, chooser, prompt, players,
-            p => new Choice.Option(p.Creature.Name, $"{p.Creature.CurrentHp}/{p.Creature.MaxHp} HP, {p.Creature.Block} Block"));
+        return await Targeting.ChoosePlayer(chooser, prompt);
     }
 
     // Lets a player trigger one die relic ability. Its owner gains the effect (The Die's 6, Dolly's Mirror, Nilry's

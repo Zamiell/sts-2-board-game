@@ -42,5 +42,11 @@
   "BG_SLIME_BOSS_BOSS.title": "Slime Boss",
   "BG_SLIME_BOSS_BOSS.loss": "{character} was absorbed by the [gold]{encounter}[/gold].",
   "BG_THE_GUARDIAN_BOSS.title": "The Guardian",
-  "BG_THE_GUARDIAN_BOSS.loss": "{character} was crushed by [gold]{encounter}[/gold]."
+  "BG_THE_GUARDIAN_BOSS.loss": "{character} was crushed by [gold]{encounter}[/gold].",
+  "BG_MIND_BLOOM_HEXAGHOST.title": "Hexaghost",
+  "BG_MIND_BLOOM_HEXAGHOST.loss": "{character} was incinerated by the [gold]{encounter}[/gold].",
+  "BG_MIND_BLOOM_SLIME_BOSS.title": "Slime Boss",
+  "BG_MIND_BLOOM_SLIME_BOSS.loss": "{character} was absorbed by the [gold]{encounter}[/gold].",
+  "BG_MIND_BLOOM_THE_GUARDIAN.title": "The Guardian",
+  "BG_MIND_BLOOM_THE_GUARDIAN.loss": "{character} was crushed by [gold]{encounter}[/gold]."
 }

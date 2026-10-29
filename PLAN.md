@@ -25,13 +25,14 @@ Goal: play *Slay the Spire: The Board Game* inside Slay the Spire 2. Values and 
 4. [x] Cards: Ironclad, Silent, Defect, Watcher, colorless, curses, statuses
 5. [x] Powers
 6. [x] Monsters, encounters, acts (Exordium, City, Beyond, Ending)
-7. [ ] Relics, potions
-8. [ ] Events, Neow, rewards, merchant, gold economy, rest sites
-9. [ ] Maps
-10. [ ] Character mechanics: Watcher stances and Miracles, Defect orbs, Silent Shivs as tokens
+7. [x] Relics, potions
+8. [x] Events, Neow, rewards, merchant, gold economy, rest sites
+9. [x] Maps
+10. [x] Character mechanics: Watcher stances and Miracles, Defect orbs, Silent Shivs as tokens
 
 ## Progress note
-- Layer 7 done: all relic deck relics (die, passive, once-per-combat ability cards, on-pickup), boss relics (offered 3-choose-1
-  after the Act I and II bosses), Prismatic Shard, and all 21 potions (drawn by their copies in the potion deck). Board game runs
-  only find board game relics and potions.
-- Next: layer 8 (events, Neow, rewards, merchant, gold, rest sites), layer 9 (maps), README.
+- All layers are implemented and pass `check.sh`. Nothing has been played through in game yet.
+- Board game Ascension 1-13 (`Core/BgAscension.cs`) replaces STS2's for board game characters.
+- Keys and the Act IV gate are in `Core/Keys.cs`. Saved reward decks are in `Core/RewardDeck.cs` (state on `BgRules`).
+- No hand limit (`Core/HandSize.cs`). Targeting-arrow choices are in `Core/Targeting.cs`. Pincer Movement is in `Core/Rows.cs`.
+- Next: an in-game playthrough of each act to catch presentation issues.

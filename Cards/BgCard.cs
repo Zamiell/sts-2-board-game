@@ -69,8 +69,9 @@ public abstract class BgCard(int cost, CardType type, CardRarity rarity, TargetT
     protected async Task AttackAll(PlayerChoiceContext choiceContext, CardPlay cardPlay, decimal damage, int hits = 1,
         string vfx = "vfx/vfx_attack_slash")
     {
-        await DamageCmd.Attack(damage).WithHitCount(hits).FromCard(this, cardPlay).TargetingAllOpponents(CombatState!)
-            .WithHitFx(vfx).Execute(choiceContext);
+        var spared = await Pincer.ChooseSpared(choiceContext, Owner);
+        await Pincer.WithSpared(spared, () => DamageCmd.Attack(damage).WithHitCount(hits).FromCard(this, cardPlay)
+            .TargetingAllOpponents(CombatState!).WithHitFx(vfx).Execute(choiceContext));
     }
 
     // Gains this card's Block for the chosen player, or for the card's owner.

@@ -17,6 +17,13 @@ namespace BoardGame.Characters;
 // about a tenth of the HP, a handful of gold, and the board game's cards and relics.
 public abstract class BgCharacter : CharacterModel, IBorrowsAssets
 {
+    // The order the board game lists its characters in.
+    public static IEnumerable<CharacterModel> InBoxOrder =>
+    [
+        ModelDb.Character<BgIronclad>(), ModelDb.Character<BgSilent>(),
+        ModelDb.Character<BgDefect>(), ModelDb.Character<BgWatcher>(),
+    ];
+
     protected abstract CharacterModel Borrowed { get; }
 
     public string BorrowedEntry => Borrowed.Id.Entry;

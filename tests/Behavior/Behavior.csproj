@@ -8,5 +8,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="../../Rules.cs" Link="Rules.cs" />
+    <Compile Include="../../Acts/BgMapData.cs" Link="BgMapData.cs" />
   </ItemGroup>
 </Project>

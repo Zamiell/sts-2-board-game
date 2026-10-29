@@ -175,8 +175,7 @@ public sealed class BgPanacea() : BgColorlessCard(0, CardType.Skill, CardRarity.
         var players = CombatState!.Players.Where(p => p.Creature.IsAlive).ToList();
         var cleansed = IsUpgraded
             ? players
-            : [await Choice.Choose(choiceContext, Owner, "Panacea: remove Weak and Vulnerable from", players,
-                p => new Choice.Option(p.Creature.Name, "")) ?? Owner];
+            : [await Targeting.ChoosePlayer(Owner, "Panacea: remove Weak and Vulnerable from", players) ?? Owner];
         foreach (var player in cleansed)
         {
             await PowerCmd.Remove<WeakPower>(player.Creature);

@@ -48,5 +48,7 @@
   "BG_INVINCIBLE_POWER.title": "Invincible",
   "BG_INVINCIBLE_POWER.description": "It can only lose [blue]{Amount}[/blue] more HP.",
   "BG_ZERO_DAMAGE_POWER.title": "Blocked",
-  "BG_ZERO_DAMAGE_POWER.description": "Damage you deal this turn is reduced to 0."
+  "BG_ZERO_DAMAGE_POWER.description": "Damage you deal this turn is reduced to 0.",
+  "BG_PINCER_MOVEMENT_POWER.title": "Pincer Movement",
+  "BG_PINCER_MOVEMENT_POWER.description": "These enemies are in different rows. Area attacks hit only one of them."
 }

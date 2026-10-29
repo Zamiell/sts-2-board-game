@@ -34,14 +34,20 @@ public static class Rows
     public static async Task<IReadOnlyList<Creature>> ChooseRow(PlayerChoiceContext choiceContext, Player player, string prompt)
     {
         var combat = player.Creature.CombatState!;
+        // The Spire Shield and Spear each stand in their own row.
+        var pincered = combat.HittableEnemies.Where(Pincer.InPincer).ToList();
+        if (pincered.Count >= 2)
+        {
+            return [await Targeting.ChooseEnemy(player, pincered, prompt) ?? pincered[0]];
+        }
         var rows = combat.Players.Where(p => EnemiesInRow(combat, p).Count > 0).ToList();
         if (rows.Count <= 1)
         {
             return combat.HittableEnemies.ToList();
         }
-        var row = await Choice.Choose(choiceContext, player, prompt, rows,
-            p => new Choice.Option($"{p.Creature.Name}'s row", string.Join(", ", EnemiesInRow(combat, p).Select(e => e.Name))));
-        return EnemiesInRow(combat, row ?? player);
+        // Pick any enemy in the row you want.
+        var enemy = await Targeting.ChooseEnemy(player, combat.HittableEnemies.ToList(), prompt + " (pick any enemy in the row)");
+        return EnemiesInRow(combat, enemy == null ? player : RowOf(enemy));
     }
 
     // "Deal X damage to any row": damage that isn't an attack, so Strength, Weak, and Vulnerable don't change it.
@@ -60,6 +66,49 @@ public static class Rows
         var enemies = player.Creature.CombatState?.HittableEnemies.ToList() ?? [];
         return enemies.Count == 0
             ? null
-            : await Choice.Choose(choiceContext, player, prompt, enemies, e => new Choice.Option(e.Name, $"{e.CurrentHp}/{e.MaxHp} HP")) ?? enemies[0];
+            : await Targeting.ChooseEnemy(player, enemies, prompt) ?? enemies[0];
     }
+}
+
+// Pincer Movement (Spire Shield and Spear): they stand in different rows, so an area attack hits only one of them.
+public static class Pincer
+{
+    private static readonly AsyncLocal<HashSet<Creature>?> Spared = new();
+
+    public static bool InPincer(Creature enemy) => enemy.IsAlive && enemy.HasPower<Powers.BgPincerMovementPower>();
+
+    // Asks which of the pincered enemies an area attack hits; returns the ones it doesn't.
+    public static async Task<HashSet<Creature>> ChooseSpared(PlayerChoiceContext choiceContext, Player player)
+    {
+        var pincered = player.Creature.CombatState?.HittableEnemies.Where(InPincer).ToList() ?? [];
+        if (pincered.Count < 2)
+        {
+            return [];
+        }
+        var hit = await Targeting.ChooseEnemy(player, pincered, "Pincer Movement: choose which enemy to hit") ?? pincered[0];
+        return pincered.Where(e => e != hit).ToHashSet();
+    }
+
+    // Runs an area attack with the spared enemies left out of its targets.
+    public static async Task WithSpared(HashSet<Creature> spared, Func<Task> attack)
+    {
+        Spared.Value = spared.Count == 0 ? null : spared;
+        try
+        {
+            await attack();
+        }
+        finally
+        {
+            Spared.Value = null;
+        }
+    }
+
+    internal static IReadOnlyList<Creature> Filter(IReadOnlyList<Creature> opponents) =>
+        Spared.Value is { } spared ? opponents.Where(c => !spared.Contains(c)).ToList() : opponents;
+}
+
+[HarmonyLib.HarmonyPatch(typeof(CombatState), nameof(CombatState.GetOpponentsOf))]
+internal static class PincerTargetsPatch
+{
+    private static void Postfix(ref IReadOnlyList<Creature> __result) => __result = Pincer.Filter(__result);
 }

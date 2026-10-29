@@ -14,13 +14,18 @@ namespace BoardGame.Core;
 [HarmonyPatch(typeof(RelicGrabBag), nameof(RelicGrabBag.Populate), [typeof(Player), typeof(Rng)])]
 internal static class PlayerRelicDeckPatch
 {
+    // The relic deck holds the Common relics. Boss relics are drawn separately after a boss, and Event relics
+    // (Prismatic Shard, Secret Portal) only come from their events.
+    internal static IEnumerable<RelicModel> RelicDeck(IEnumerable<RelicModel> relics) =>
+        relics.Where(r => r.Rarity == RelicRarity.Common);
+
     private static bool Prefix(RelicGrabBag __instance, Player player, Rng rng)
     {
         if (player.Character is not BgCharacter)
         {
             return true;
         }
-        __instance.Populate(ModelDb.RelicPool<BgRelicPool>().GetUnlockedRelics(player.UnlockState), rng);
+        __instance.Populate(RelicDeck(ModelDb.RelicPool<BgRelicPool>().GetUnlockedRelics(player.UnlockState)), rng);
         return false;
     }
 }
@@ -44,7 +49,7 @@ internal static class SharedRelicDeckPopulatePatch
     {
         if (SharedRelicDeckPatch.BoardGameRunStarting)
         {
-            relics = ModelDb.RelicPool<BgRelicPool>().AllRelics;
+            relics = PlayerRelicDeckPatch.RelicDeck(ModelDb.RelicPool<BgRelicPool>().AllRelics);
         }
     }
 }
