@@ -26,6 +26,9 @@ public abstract class BgCharacter : CharacterModel, IBorrowsAssets
 
     protected abstract CharacterModel Borrowed { get; }
 
+    // The starting relic that belongs to this character; every character also starts with The Die.
+    public RelicModel SignatureRelic => StartingRelics.First(relic => relic is not BgTheDie);
+
     public string BorrowedEntry => Borrowed.Id.Entry;
 
     public override int StartingGold => 5;

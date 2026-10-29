@@ -20,7 +20,7 @@ var game = AssemblyLoadContext.Default.LoadFromAssemblyPath(Path.Combine(gameDat
 var failures = new List<string>();
 
 // 1. Private bindings resolve and every Harmony patch installs.
-foreach (var name in new[] { "BoardGame.PoisonTriggerPatch", "BoardGame.Core.Text", "BoardGame.Orbs.BgOrbs", "BoardGame.Monsters.BgMonster", "BoardGame.Monsters.BgMonsterMovePatch" })
+foreach (var name in new[] { "BoardGame.PoisonTriggerPatch", "BoardGame.Core.Text", "BoardGame.Orbs.BgOrbs", "BoardGame.Monsters.BgMonster", "BoardGame.Monsters.BgMonsterMovePatch", "BoardGame.Characters.CharacterSelect" })
 {
     RuntimeHelpers.RunClassConstructor(mod.GetType(name, throwOnError: true)!.TypeHandle);
 }
