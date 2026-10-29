@@ -60,6 +60,11 @@ public static class Targeting
 
     private static async Task<Creature?> PickLocally(Player player, IReadOnlyList<Creature> candidates, string prompt, bool optional)
     {
+        if (MegaCrit.Sts2.Core.AutoSlay.AutoSlayer.IsActive)
+        {
+            // Playtests can't aim the arrow.
+            return candidates[player.RunState.Rng.Niche.NextInt(candidates.Count)];
+        }
         var room = NCombatRoom.Instance;
         var manager = NTargetManager.Instance;
         if (room == null || manager == null)
