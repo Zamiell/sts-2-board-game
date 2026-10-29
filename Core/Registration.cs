@@ -31,6 +31,19 @@ internal static class Registration
     private static void Acts(ref IEnumerable<ActModel> __result) =>
         __result = __result.Concat(Content.Models<BgAct, ActModel>()).ToList();
 
+    // STS2 picks a run's acts from these lists, one per act index, and needs an act it may pick at every index. Board
+    // game acts are never picked (board game runs set their acts directly), and Act IV would add an index with no act
+    // STS2 may pick.
+    private static IReadOnlyList<IReadOnlyList<ActModel>>? _stsActsByIndex;
+
+    [HarmonyPatch(typeof(ModelDb), nameof(ModelDb.ActsByIndex), MethodType.Getter)]
+    [HarmonyPostfix]
+    private static void ActsByIndex(ref IReadOnlyList<IReadOnlyList<ActModel>> __result) =>
+        __result = _stsActsByIndex ??= __result
+            .Select(acts => (IReadOnlyList<ActModel>)acts.Where(act => act is not BgAct).ToList())
+            .Where(acts => acts.Count > 0)
+            .ToList();
+
     [HarmonyPatch(typeof(ModelDb), nameof(ModelDb.Orbs), MethodType.Getter)]
     [HarmonyPostfix]
     private static void Orbs(ref IEnumerable<OrbModel> __result) =>
